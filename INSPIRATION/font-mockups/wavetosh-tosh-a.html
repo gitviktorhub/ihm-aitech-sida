@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="sv">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Viktor Kvist - Wavetosh + TRY Tosh A</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fafafa;font-family:'Tosh A',sans-serif;color:#111}.viewport{width:100%;aspect-ratio:1586/992;overflow:hidden}.mock{position:relative;width:1586px;height:992px;transform-origin:top left;overflow:hidden}.logo{position:absolute;left:69px;top:24px;font-size:28px;font-weight:700;line-height:.9}.links{position:absolute;top:42px;left:495px;display:flex;gap:60px;font-size:20px}.contact{position:absolute;right:70px;top:40px;font-size:24px;border-bottom:2px solid;padding-bottom:5px}.eyebrow{position:absolute;top:141px;left:70px;font-size:17px}.headline{position:absolute;left:65px;top:166px;width:1460px;height:225px;display:flex;align-items:center;z-index:2}.headline span{font-family:Wavetosh,sans-serif;white-space:nowrap;line-height:1;font-size:210px}.role{position:absolute;right:70px;top:413px;font-size:20px}.backplate{position:absolute;left:380px;top:456px;width:730px;height:366px;background:#f3f3f3}.architecture{position:absolute;left:607px;top:405px;width:472px;height:485px;overflow:hidden}.architecture img{position:absolute;width:1586px;height:992px;max-width:none;left:-607px;top:-405px}.about{position:absolute;left:403px;top:617px;width:200px}.about strong{font-size:38px;display:block;margin-bottom:18px}.about p{font-size:20px;line-height:1.3;margin:0}.linkedin{position:absolute;left:1137px;top:646px;font-size:24px}.linkedin a{display:inline-block;margin-bottom:12px;color:inherit;text-underline-offset:6px}.linkedin small{display:block;font-size:17px}.footer{position:absolute;left:69px;right:66px;top:911px;border-top:2px solid;padding-top:12px;display:flex;justify-content:space-between;align-items:center}.footer strong{font-size:40px}.footer small{font-size:12px}a{color:inherit}
+.viewport{aspect-ratio:1586/1300}.mock{height:1300px}.links a{text-decoration:none}.contact{text-decoration:none}.about{left:69px;top:600px;width:445px}.about p{font-size:23px;line-height:1.45}.footer strong{font-size:36px}.details{position:absolute;left:69px;right:66px;top:1020px;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:60px}.details h2{font-size:17px;font-weight:400;margin:0 0 18px}.details h3{font-size:28px;margin:0 0 10px}.details p{font-size:21px;line-height:1.5;margin:0}.details a{text-underline-offset:5px}.details small{font-size:18px}
+</style>
+<div class="viewport"><main class="mock">
+<div class="logo">VIKTOR<br>KVIST</div>
+<nav class="links"><a href="#om-mig">[ OM MIG ]</a><a href="#utbildning">[ UTBILDNING ]</a><a href="#kontakt">[ KONTAKT ]</a></nav>
+<a class="contact" href="mailto:kvist2001@gmail.com">KONTAKTA MIG &#8599;</a>
+<div class="eyebrow">DIGITAL MARKETING / IHM BUSINESS SCHOOL</div>
+<div class="backplate"></div>
+<div class="architecture"><img src="reference.png" alt="Svartvit arkitektur, tillfallig bild"></div>
+<h1 class="headline" style="margin:0;font-weight:400"><span>VIKTOR KVIST</span></h1>
+<div class="role">[ S&#214;KER LIA V&#197;REN 2027 ]</div>
+<div class="about" id="om-mig"><strong>OM MIG</strong><p>Jag studerar till Digital Marketing Specialist p&#229; IHM Business School och s&#246;ker LIA v&#229;ren 2027.</p></div>
+<div class="linkedin"><a href="https://www.linkedin.com/in/viktor-kvist/">LINKEDIN &#8599;</a><small>linkedin.com/in/viktor-kvist</small></div>
+<div class="footer"><strong>UTBILDNING &amp; KOMPETENSER</strong><small>01 &nbsp;&nbsp;&nbsp; SVERIGE</small></div>
+<section class="details"><div id="utbildning"><h2>[ UTBILDNING ]</h2><h3>IHM Business School</h3><p>Digital Marketing Specialist<br><small>Augusti 2026 - juni 2028</small></p></div><div><h2>[ KOMPETENS ]</h2><h3>Sociala medier</h3><p>Kommunikation i sociala medier</p></div><div id="kontakt"><h2>[ KONTAKT ]</h2><h3>LIA v&#229;ren 2027</h3><p><a href="mailto:kvist2001@gmail.com">kvist2001@gmail.com</a><br><a href="https://www.linkedin.com/in/viktor-kvist/">LinkedIn &#8599;</a></p></div></section>
+</main></div>
+<script src="tosh-a-data.js"></script>
+<script>
+const faces=[new FontFace('Wavetosh',`url("${TOSH_FONTS.wave}")`),new FontFace('Tosh A',`url("${TOSH_FONTS.regular}")`,{weight:'400'}),new FontFace('Tosh A',`url("${TOSH_FONTS.bold}")`,{weight:'700'})];
+faces.forEach(face=>document.fonts.add(face));
+function resize(){document.querySelector('.mock').style.transform=`scale(${document.querySelector('.viewport').clientWidth/1586})`}
+resize();addEventListener('resize',resize);
+window.mockupsReady=Promise.all(faces.map(face=>face.load())).then(()=>{const title=document.querySelector('.headline span');const scale=document.querySelector('.viewport').clientWidth/1586;title.style.fontSize=Math.floor(210*Math.min(1,1460/(title.getBoundingClientRect().width/scale),225/(title.getBoundingClientRect().height/scale)))+'px'});
+</script>
+</html>

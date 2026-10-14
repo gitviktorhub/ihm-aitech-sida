@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="sv">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Viktor Kvist - fontmockups</title>
+<style>
+:root{--paper:#fafafa;--ink:#111;--line:#ccc}
+*{box-sizing:border-box}body{margin:0;background:#eaeaea;color:var(--ink);font-family:Arial,sans-serif}header{padding:24px 4%;background:white;border-bottom:1px solid var(--line)}h1{font-size:24px;margin:0 0 16px}nav{display:flex;flex-wrap:wrap;gap:8px 20px}a{color:inherit;text-underline-offset:4px}main{max-width:1666px;margin:auto;padding:24px 40px}section{margin-bottom:36px;scroll-margin-top:16px}.caption{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}h2{font-size:18px;margin:0}select{padding:8px;font:inherit;max-width:55%}.viewport{width:100%;aspect-ratio:1586/992;overflow:hidden}.mock{position:relative;width:1586px;height:992px;background:var(--paper);transform-origin:top left;overflow:hidden}.architecture{position:absolute;left:607px;top:345px;width:472px;height:545px;overflow:hidden}.architecture img{position:absolute;width:1586px;height:992px;max-width:none;left:-607px;top:-345px}.logo{position:absolute;left:69px;top:24px;font-size:28px;font-weight:900;line-height:.85}.links{position:absolute;top:42px;left:495px;display:flex;gap:65px;font:20px monospace}.contact{position:absolute;right:70px;top:40px;font:24px monospace;border-bottom:2px solid;padding-bottom:5px}.eyebrow{position:absolute;top:141px;left:70px;font:17px monospace;letter-spacing:6px}.headline{position:absolute;left:65px;top:166px;width:1460px;height:225px;display:flex;align-items:center;z-index:2}.headline span{white-space:nowrap;font-weight:normal;line-height:1}.role{position:absolute;right:70px;top:413px;font:20px monospace;letter-spacing:6px}.backplate{position:absolute;left:380px;top:456px;width:730px;height:366px;background:#f3f3f3}.about{position:absolute;left:403px;top:617px;width:200px}.about strong{font-size:38px;display:block;margin-bottom:18px}.about p{font:20px/1.3 monospace;margin:0}.linkedin{position:absolute;left:1137px;top:646px;font:24px monospace}.linkedin a{display:inline-block;margin-bottom:12px}.linkedin small{display:block;font-size:17px}.footer{position:absolute;left:69px;right:66px;top:911px;border-top:2px solid;padding-top:12px;display:flex;justify-content:space-between;align-items:center}.footer strong{font-size:40px}.footer small{font:12px monospace;letter-spacing:4px}
+@media(max-width:600px){main{padding:20px 12px}.caption{align-items:flex-start}h2{font-size:16px}select{font-size:13px}header{padding:20px 12px}}
+.architecture{top:405px;height:485px}.architecture img{top:-405px}
+</style>
+<header><h1>VIKTOR KVIST / 11 typsnitt</h1><nav id="navigation"></nav></header>
+<main id="gallery"></main>
+<script src="font-data.js"></script>
+<script>
+// Each entry uses the actual font file from its supplied archive.
+const CONFIG = [
+ ['Alte Haas Grotesk','alte_haas_grotesk',['AlteHaasGroteskBold.ttf','AlteHaasGroteskRegular.ttf']],
+ ['AMS Trame','ams_trame',['AMSTN___.TTF','AMSTNI__.TTF','AMSTRG__.TTF','AMSTI___.TTF']],
+ ['Axera Round','axera_round',['Axera Round.ttf']],
+ ['Boiled Pasta','boiled_pasta',['Boiled Pasta.ttf']],
+ ['Consola Mono','consola_mono',['ConsolaMono-Bold.ttf','ConsolaMono-Book.ttf']],
+ ['Dolce Vita','dolce_vita',['Dolce Vita Heavy Bold.ttf','Dolce Vita.ttf','Dolce Vita Light.ttf']],
+ ['Dotimpact','dotimpact',['MPF DOTIMPACT.ttf']],
+ ['Forta','forta',['Forta.ttf']],
+ ['Retro Italics','retro_italics',['retroitalics.ttf']],
+ ['The 2K12','the_2k12',['The 2K12.ttf']],
+ ['Wavetosh','wavetosh',['Wavetosh.ttf']]
+];
+const gallery=document.getElementById('gallery');
+const ready=[];
+CONFIG.forEach(([name,folder,files],i)=>{
+ const section=document.createElement('section');section.id=folder;
+ section.innerHTML=`<div class="caption"><h2>${String(i+1).padStart(2,'0')} / ${name}</h2><select aria-label="Fontvariant ${name}">${files.map((f,j)=>`<option value="${j}">${f.replace(/\.(ttf|otf)$/i,'')}</option>`).join('')}</select></div><div class="viewport"><div class="mock"><div class="logo">VIKTOR<br>KVIST</div><div class="links">[ OM MIG ] &nbsp; [ ERFARENHET ] &nbsp; [ PROJEKT ]</div><div class="contact">KONTAKTA MIG &#8599;</div><div class="eyebrow">PERSONLIG PORTFOLIO</div><div class="backplate"></div><div class="architecture"><img src="reference.png" alt="Svartvit arkitektur, tillfallig bild"></div><div class="headline"><span>VIKTOR KVIST</span></div><div class="role">[ DIN YRKESROLL ]</div><div class="about"><strong>OM MIG</strong><p>[ Din presentation<br>fr&#229;n LinkedIn ]</p></div><div class="linkedin"><a href="https://www.linkedin.com/in/viktor-kvist/">LINKEDIN &#8599;</a><small>linkedin.com/in/viktor-kvist</small></div><div class="footer"><strong>ERFARENHET &amp; PROJEKT</strong><small>01 &nbsp;&nbsp;&nbsp; DESIGNUTKAST</small></div></div></div>`;
+ gallery.append(section);
+ const link=document.createElement('a');link.href='#'+folder;link.textContent=name;document.getElementById('navigation').append(link);
+ const title=section.querySelector('.headline span');
+ const fit=()=>{title.style.fontSize='210px';const width=title.getBoundingClientRect().width/scale(section);const height=title.getBoundingClientRect().height/scale(section);title.style.fontSize=Math.floor(210*Math.min(1,1460/width,225/height))+'px'};
+ if(folder==='the_2k12'){title.innerHTML='<img src="the-2k12-title.png" alt="VIKTOR KVIST" width="1460" height="225">';section.querySelector('select').disabled=true;return;}
+ const fonts=files.map((f,j)=>{const family='font'+i+'v'+j;const face=new FontFace(family,`url("${FONT_DATA[folder+'/'+f]}")`);document.fonts.add(face);return face.load().then(()=>family)});
+ ready.push(Promise.all(fonts).then(families=>{title.style.fontFamily='"'+families[0]+'"';fit();section.querySelector('select').onchange=e=>{title.style.fontFamily='"'+families[Number(e.target.value)]+'"';fit()}}));
+});
+function scale(section){return section.querySelector('.viewport').clientWidth/1586}
+function resize(){document.querySelectorAll('section').forEach(s=>s.querySelector('.mock').style.transform=`scale(${scale(s)})`)}
+resize();window.addEventListener('resize',resize);
+window.mockupsReady=Promise.all(ready);
+</script>
+</html>

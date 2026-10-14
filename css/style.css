@@ -1,0 +1,1378 @@
+/* ==========================================================
+   VIKTOR KVIST - PORTFOLIO DESIGN SYSTEM
+   Roll: Digital Marketing Specialist (IHM Business School)
+   Estetik: Ljus, ren bakgrund · Högkontrast Cobalt Accent ·
+            Asymmetrisk layout · ASCII & Kod-detaljer ·
+            Fullt mobilanpassad & snabbladdad
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap');
+
+/* --- Design Tokens --- */
+:root {
+    /* Färgpalett: Ren ljus bakgrund med kraftfull accent */
+    --bg-base: #ffffff;
+    --bg-subtle: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-muted: #f1f5f9;
+    --bg-dark: #090e1a;
+    --bg-dark-card: #111827;
+
+    /* Typografiska färger (Hög kontrast / WCAG AAA compliant) */
+    --text-primary: #090e1a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --text-inverse: #ffffff;
+    --text-inverse-muted: #94a3b8;
+
+    /* Kraftfull accentfärg för hög kontrast */
+    --accent: #0047ff; /* Electric Cobalt Blue */
+    --accent-hover: #0036cc;
+    --accent-light: #edf2ff;
+    --accent-border: #bfdbfe;
+    --accent-glow: rgba(0, 71, 255, 0.18);
+
+    /* Tekniska accentindikatorer */
+    --tech-cyan: #0284c7;
+    --tech-green: #059669;
+    --tech-orange: #d97706;
+
+    /* Gränser och linjer */
+    --border-light: #e2e8f0;
+    --border-medium: #cbd5e1;
+    --border-focus: #0047ff;
+
+    /* Typsnitt */
+    --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    /* Avrundning & Skuggor */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 8px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 16px 32px -4px rgba(0, 0, 0, 0.08), 0 6px 12px -2px rgba(0, 0, 0, 0.04);
+    --shadow-accent: 0 12px 28px -4px rgba(0, 71, 255, 0.28);
+
+    --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Global Reset & Baskonfiguration --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.65;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Diskret tekniskt rutnät i bakgrunden */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.7;
+}
+
+/* Tillgänglighet: Skiplink för tangentbordsanvändare */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    background: var(--text-primary);
+    color: var(--text-inverse);
+    padding: 0.75rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    z-index: 9999;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+/* Länkar */
+a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+/* ==========================================================
+   HEADER & TOPPNAVIGATION
+   ========================================================== */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border-light);
+    transition: box-shadow 0.2s ease;
+}
+
+.site-header.scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Logotyp & Teknisk Identitet */
+.brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.brand-name {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.brand-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 10px var(--accent);
+}
+
+.brand-role {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: -0.01em;
+}
+
+/* Statusindikator */
+.header-status {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    background-color: var(--tech-green);
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 6px rgba(5, 150, 105, 0.6);
+    animation: pulseGlow 2.5s infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.9); }
+}
+
+/* Navigation Links */
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-link {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--accent);
+    background-color: var(--accent-light);
+}
+
+.nav-cta {
+    background: var(--accent);
+    color: var(--text-inverse) !important;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.5rem 1.15rem;
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.nav-cta:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-accent);
+}
+
+/* Mobilmeny Toggle Button */
+.mobile-nav-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==========================================================
+   LAYOUT CONTAINERS & TYPOGRAFI
+   ========================================================== */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6.5rem;
+}
+
+section {
+    position: relative;
+}
+
+/* Tekniska sektionsetiketter (ASCII / Kod-stil) */
+.section-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+    background: var(--accent-light);
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--accent-border);
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.85rem, 3.2vw, 2.45rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 0.85rem;
+}
+
+.section-desc {
+    color: var(--text-secondary);
+    font-size: 1.08rem;
+    line-height: 1.6;
+    max-width: 680px;
+}
+
+/* ==========================================================
+   HERO SECTION
+   Asymmetrisk, kraftfull typografi, tydlig värdeproposition
+   ========================================================== */
+.hero-section {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 3.5rem;
+    align-items: center;
+    padding: 3rem 0 1rem;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.hero-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.hero-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-sm);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-medium);
+    color: var(--text-secondary);
+}
+
+.hero-tag.featured {
+    background: var(--accent-light);
+    border-color: var(--accent-border);
+    color: var(--accent);
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.35rem, 4.4vw, 3.55rem);
+    font-weight: 900;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    color: var(--text-primary);
+}
+
+.hero-lead {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 580px;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--accent);
+    color: var(--text-inverse);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.9rem 2rem;
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-accent);
+    border: 2px solid var(--accent);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px -4px rgba(0, 71, 255, 0.35);
+    color: var(--text-inverse);
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.9rem 1.75rem;
+    border-radius: var(--radius-full);
+    border: 1.5px solid var(--border-medium);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background: var(--bg-subtle);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* Hero Technical Terminal Strip */
+.hero-tech-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-light);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.hero-tech-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.hero-tech-item span {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* ==========================================================
+   VISUAL PLACEHOLDER SYSTEM
+   Gråskaliga rutor med avrundade hörn, ikoner och centrerad text
+   ========================================================== */
+.visual-placeholder {
+    background-color: var(--bg-muted);
+    border: 1.5px dashed var(--border-medium);
+    border-radius: var(--radius-md);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2.25rem 1.5rem;
+    overflow: hidden;
+    transition: var(--transition);
+    min-height: 240px;
+    user-select: none;
+}
+
+/* Subtila arkitektoniska kryss i hörnen (teknisk ritningskänsla) */
+.visual-placeholder::before,
+.visual-placeholder::after {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--border-medium);
+    position: absolute;
+    line-height: 1;
+}
+
+.visual-placeholder::before {
+    content: "+";
+    top: 8px;
+    left: 10px;
+}
+
+.visual-placeholder::after {
+    content: "+";
+    bottom: 8px;
+    right: 10px;
+}
+
+.visual-placeholder:hover {
+    border-color: var(--accent);
+    background-color: #eef2f6;
+    transform: translateY(-2px);
+}
+
+.placeholder-icon-wrap {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    margin-bottom: 1.15rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.visual-placeholder:hover .placeholder-icon-wrap {
+    color: var(--accent);
+    border-color: var(--accent-border);
+    transform: scale(1.05);
+}
+
+.placeholder-icon-wrap svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* Den exakta placeholder-texten som efterfrågats */
+.placeholder-label {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: #ffffff;
+    border: 1px solid var(--border-medium);
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    max-width: 90%;
+    word-break: break-word;
+    letter-spacing: -0.01em;
+}
+
+.placeholder-hint {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 0.65rem;
+}
+
+/* Modifierare för specifika placeholders */
+.placeholder-headshot {
+    min-height: 380px;
+    height: 100%;
+}
+
+.placeholder-hero-container {
+    height: 100%;
+    display: flex;
+}
+
+/* ==========================================================
+   SEKTION 2: KÄRNKOMPETENSER & TJÄNSTER
+   Ren presentation med subtila tekniska designdetaljer
+   ========================================================== */
+.services-header {
+    margin-bottom: 2.75rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1.5rem;
+}
+
+.service-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.service-card:hover {
+    border-color: var(--accent-border);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-card-top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.service-code-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+}
+
+.service-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.service-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.service-tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border-light);
+}
+
+.tech-chip {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--bg-subtle);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-light);
+}
+
+/* ==========================================================
+   SEKTION 3: CASE STUDIES & UTVALDA PROJEKT
+   Asymmetrisk layout med mätbart KPI-fokus
+   ========================================================== */
+.projects-header {
+    margin-bottom: 2.75rem;
+}
+
+.projects-asymmetric-grid {
+    display: grid;
+    grid-template-columns: 12fr;
+    gap: 2.5rem;
+}
+
+/* Featured Case Study 1 (Stor asymmetrisk presentation) */
+.case-card-featured {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    transition: var(--transition);
+}
+
+.case-card-featured:hover {
+    border-color: var(--border-medium);
+    box-shadow: var(--shadow-lg);
+}
+
+.case-visual-side {
+    background: var(--bg-muted);
+    padding: 2rem;
+    display: flex;
+    align-items: stretch;
+    border-right: 1px solid var(--border-light);
+}
+
+.case-visual-side .visual-placeholder {
+    width: 100%;
+    min-height: 320px;
+    background: #ffffff;
+}
+
+.case-info-side {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.75rem;
+}
+
+.case-header-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.case-category {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.case-title {
+    font-family: var(--font-heading);
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.25;
+}
+
+.case-text {
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+    line-height: 1.6;
+}
+
+/* KPI-panel med mätbara mätpunkter */
+.kpi-panel {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 1.15rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.kpi-panel-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.kpi-items-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.kpi-metric-box {
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.kpi-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+}
+
+.kpi-target {
+    font-family: var(--font-heading);
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+/* Asymmetriska undermoduler för Projekt 2 & 3 */
+.cases-subgrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.case-card-secondary {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+}
+
+.case-card-secondary:hover {
+    border-color: var(--border-medium);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.case-card-secondary .case-visual-wrapper {
+    background: var(--bg-muted);
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.case-card-secondary .visual-placeholder {
+    min-height: 220px;
+    background: #ffffff;
+}
+
+.case-card-secondary .case-content-wrapper {
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-grow: 1;
+}
+
+/* ==========================================================
+   SEKTION 4: OM MIG & STRATEGISKT TILLVÄGAGÅNGSSÄTT
+   Balansen mellan datadriven analys och kreativitet
+   ========================================================== */
+.about-section {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    padding: 3.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 3.5rem;
+    align-items: center;
+}
+
+.about-text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.about-lead-quote {
+    font-size: 1.12rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    line-height: 1.6;
+    padding-left: 1rem;
+    border-left: 3px solid var(--accent);
+}
+
+.about-p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+/* Balans: Data + Kreativitet */
+.balance-banner {
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+}
+
+.balance-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.balance-title {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.balance-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+}
+
+.about-visual-side {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.about-visual-side .visual-placeholder {
+    min-height: 320px;
+    background: #ffffff;
+}
+
+/* Tratt-faser i miniatyr */
+.funnel-steps-mini {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.funnel-step-item {
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    padding: 0.45rem 0.25rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+}
+
+.funnel-step-item strong {
+    display: block;
+    color: var(--accent);
+    font-size: 0.75rem;
+}
+
+/* ==========================================================
+   SEKTION 5: VERKTYGSSTACK & SYSTEM
+   Kompakt yta med relevant plattformar och certifieringar
+   ========================================================== */
+.tools-grid-layout {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.tools-visual-col .visual-placeholder {
+    min-height: 290px;
+    background: var(--bg-card);
+}
+
+.tools-content-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.tools-category-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.tool-group-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.tool-group-name {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.tool-badge-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.tool-badge {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+}
+
+/* ==========================================================
+   SEKTION 6: KONTAKTSEKTION & FOOTER
+   Konverteringsoptimerad med direktlänkar och professionell avslutning
+   ========================================================== */
+.contact-section {
+    background: var(--bg-dark);
+    color: var(--text-inverse);
+    border-radius: var(--radius-xl);
+    padding: 4.5rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Accentljus i kontaktbakgrunden */
+.contact-section::after {
+    content: "";
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 71, 255, 0.35) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.contact-container {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3.5rem;
+    align-items: center;
+}
+
+.contact-meta {
+    background: rgba(255, 255, 255, 0.1);
+    color: #60a5fa;
+    border-color: rgba(96, 165, 250, 0.3);
+}
+
+.contact-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    line-height: 1.15;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.contact-lead {
+    color: var(--text-inverse-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.75rem;
+}
+
+/* Direkta kontaktkort */
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition);
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.contact-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #60a5fa;
+    transform: translateX(4px);
+}
+
+.contact-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.contact-card-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.contact-card-value {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.contact-card-action {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: #60a5fa;
+}
+
+/* Kopiera e-post knapp */
+.copy-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #ffffff;
+}
+
+/* Högra konverteringsblocket i kontakten */
+.contact-cta-box {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    text-align: left;
+}
+
+.contact-cta-badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: #34d399;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.contact-cta-heading {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.contact-cta-text {
+    color: var(--text-inverse-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+.site-footer {
+    border-top: 1px solid var(--border-light);
+    background: #ffffff;
+    padding: 2.5rem 1.5rem;
+    margin-top: 2rem;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.footer-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.footer-credits {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    list-style: none;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+}
+
+.back-to-top {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+/* ==========================================================
+   RESPONSIVITET & MEDIA QUERIES
+   Optimerad för mobiltelefoner, surfplattor och desktops
+   ========================================================== */
+@media (max-width: 992px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .placeholder-headshot {
+        min-height: 280px;
+    }
+
+    .case-card-featured {
+        grid-template-columns: 1fr;
+    }
+
+    .case-visual-side {
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .tools-grid-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        gap: 4.5rem;
+        padding-top: 1.5rem;
+    }
+
+    .cases-subgrid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-section {
+        padding: 2rem 1.5rem;
+    }
+
+    .balance-banner {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-section {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .tools-category-cards {
+        grid-template-columns: 1fr;
+    }
+
+    /* Mobilnavigering */
+    .mobile-nav-toggle {
+        display: flex;
+    }
+
+    .main-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        border-bottom: 1px solid var(--border-light);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .main-nav.active {
+        display: block;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+
+    .nav-link {
+        padding: 0.75rem 1rem;
+        display: block;
+    }
+
+    .nav-cta {
+        display: block;
+        text-align: center;
+        margin-top: 0.5rem;
+    }
+
+    .header-status {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .kpi-items-row {
+        grid-template-columns: 1fr;
+    }
+
+    .funnel-steps-mini {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

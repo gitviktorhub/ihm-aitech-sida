@@ -1,0 +1,9 @@
+# Operativsystem och OneDrive
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.tmp
+
+# Editor & Workspace
+.vscode/
+*.code-workspace
